@@ -6,10 +6,8 @@ use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Services\ProjectService;
 use Illuminate\Http\Request;
 
-//use CodeProject\Http\Requests;
 
-
-class ProjectController extends Controller
+class ProjectFileController extends Controller
 {
     /**
      * @var ProjectRepository
@@ -52,8 +50,16 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        return $this->service->create($request->all());
+        $file = $request->file('file');
+        $extension = $file->getClientOriginalExtension();
+
+        $data['file'] = $file;
+        $data['extension'] = $extension;
+        $data['name'] = $request->name;
+        $data['project_id'] = $request->project_id;
+        $data['description'] = $request->description;
+
+        $this->service->createFile($data);
     }
 
     /**
@@ -64,15 +70,10 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        /*$userId = \Authorizer::getResourceOwnerId();
-        if($this->repository->isOwner($id, $userId) == false){
-            return ['success'=>false];
-        }*/
         if ($this->checkProjectPermissions($id) == false){
             return ['error' => 'Access Forbidden'];
         }
         return $this->repository->find($id);
-        //return Client::find($id);
     }
 
     /**
@@ -84,14 +85,6 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*$client = Client::find($id); //consulta dos dados
-
-        $client->update($request->all(),$id); //atualiza os dados
-
-        return $client; //retornar os dados para serialização em JSON*/
-
-        //return Client::find($id)->update($request->all());
-        //return $this->repository->update($request->all(), $id);
         if ($this->checkProjectOwner($id)==false){
             return ['error' => 'Access Forbidden'];
         }
@@ -106,8 +99,6 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //Client::find($id)->delete();
-
         if ($this->checkProjectOwner($id)==false){
             return ['error' => 'Access Forbidden'];
         }
