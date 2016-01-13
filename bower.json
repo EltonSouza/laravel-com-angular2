@@ -1,0 +1,29 @@
+{
+  "name": "codeproject-curso-angularjs",
+  "description": "Frontend de gerenciador de projetos",
+  "main": "",
+  "authors": [
+    "Elton <elton.souza@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/EltonSouza/laravel-com-angular2",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-route": "~1.4.8",
+    "angular-resource": "~1.4.8",
+    "angular-animate": "~1.4.8",
+    "angular-messages": "~1.4.8",
+    "angular-bootstrap": "~1.0.0",
+    "angular-strap": "~2.3.6",
+    "bootstrap": "~3.3.6"
+  }
+}
